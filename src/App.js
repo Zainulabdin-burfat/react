@@ -9,7 +9,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
 function App() {
@@ -23,7 +22,7 @@ function App() {
 
     let sno = null;
 
-    if (todos.length==0) {
+    if (todos.length===0) {
       sno = 0;
     }else{
 
