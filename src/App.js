@@ -4,7 +4,7 @@ import {Todos} from './Components/Todos';
 import {AddTodo} from './Components/AddTodo';
 import {Footer} from './Components/Footer';
 import {About} from './Components/About';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,6 +12,14 @@ import {
 } from "react-router-dom";
 
 function App() {
+
+  let initTodo;
+  if (localStorage.getItem("todos")===null ) {
+    initTodo = [];
+  }else{
+    initTodo = JSON.parse(localStorage.getItem("todos"));
+  }
+  
   const onDelete = (todo) => {
     setTodos(todos.filter((e)=>{
       return e!==todo;
@@ -34,10 +42,17 @@ function App() {
       desc:desc,
     }
     setTodos([...todos,myTodo]);
-    console.log(myTodo);
+
+   
+    // if (localStorage.getItem("todos") ===null) {
+      // localStorage.setItem("todos",JSON.stringify(todos));
+    // }
   }
+  const [todos, setTodos] = useState(initTodo);
+  useEffect(() => {
+    localStorage.setItem("todos",JSON.stringify(todos));
+  }, [todos]) 
  
-  const [todos, setTodos] = useState([]);
   return (
     <div className="App">
       <Router>
